@@ -15,3 +15,4 @@ EXPOSE 5000
 # Command to run your app
 CMD ["python", "app.py"]
 
+LABEL org.opencontainers.image.source https://github.com/sbofirov/gh-actions
