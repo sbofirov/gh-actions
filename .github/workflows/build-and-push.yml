@@ -1,0 +1,29 @@
+name: Build and Push Python Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Adjust to trigger on the branches you want
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Log in to GitHub Container Registry (GHCR)
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      # Step 3: Set up Python and build Docker image
+      - name: Build the Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/python-app:latest .
+
+      # Step 4: Push Docker image to GHCR
+      - name: Push the Docker image
+        run: docker push ghcr.io/${{ github.repository }}/python-app:latest
+
