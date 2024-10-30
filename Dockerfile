@@ -11,6 +11,7 @@ RUN pip install -r requirements.txt
 # Copy the rest of your application code
 COPY . .
 
+EXPOSE 5000
 # Command to run your app
 CMD ["python", "app.py"]
 
